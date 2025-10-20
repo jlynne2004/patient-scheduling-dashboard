@@ -1,0 +1,20 @@
+# Python
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+
+# Data files (if you don't want to commit large CSVs)
+*.csv
+*.xlsx
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Tableau files (optional - depends if you want to share)
+*.twbx
+*.hyper
