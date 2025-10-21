@@ -284,11 +284,11 @@ def generate_appt_record(pt, appt_type, current_date, is_return_visit=False, vis
         first_call_resolution = None
         time_to_schedule = None
 
-    # Load time
+    # Lead time
     if appt_date and date_scheduled:
-        load_time = (appt_date - date_scheduled).days
+        lead_time = (appt_date - date_scheduled).days
     else:
-        load_time = None
+        lead_time = None
 
     # Reason/notes based on status
     if status in ['Pt Cancelled','Hosp Cancelled']:
