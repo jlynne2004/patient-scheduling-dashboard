@@ -153,7 +153,7 @@ for i in range(NUM_UNIQUE_PTS):
     })
 
 # Create appt journey mapping
-appt_journey = [
+appt_journey = {
     'Initial Consult': ['Follow-Up','Procedure','Lab Work','Imaging'],
     'Follow-Up': ['Procedure','Surgery','Lab Work','Imaging','Follow-Up'],
     'Procedure': ['Follow-Up'],
@@ -162,7 +162,7 @@ appt_journey = [
     'Imaging': ['Follow-Up'],
     'Physical Therapy': ['Follow-Up','Physical Therapy'],
     'Annual Check-Up': ['Lab Work','Follow-Up']
-]
+}
 
 # Generate dataset with pt histories
 data = []
