@@ -292,10 +292,10 @@ def generate_appt_record(pt, appt_type, current_date, is_return_visit=False, vis
 
     # Reason/notes based on status
     if status in ['Pt Cancelled','Hosp Cancelled']:
-        reason = random.choice(cancellation_reasons)
+        reason = random.choice(cancel_reasons)
         notes = f'Cancelled: {reason}'
     elif status == 'Needs Reschedule':
-        reason = random.choice(cancellation_reasons[:5])
+        reason = random.choice(cancel_reasons[:5])
         notes = f'Reschedule Needed: {reason}'
     elif status == 'Awaiting Callback':
         notes = 'Left VM, awaiting callback'
