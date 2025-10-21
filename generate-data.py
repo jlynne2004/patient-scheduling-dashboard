@@ -110,7 +110,7 @@ cancel_reasons = [
     'Pt No Show',
     'Pt Sick',
     'Transportation',
-    'Weather'
+    'Weather',
     'Feeling Better',
     'Insurance',
     'Provider Cancellation',
@@ -146,7 +146,7 @@ agent_statuses = [
 base_pts = []
 for i in range(NUM_UNIQUE_PTS):
     base_pts.append({
-        'pt_id': f'PT{1000 + 1}',
+        'pt_id': f'PT{1000 + i}',
         'pt_name': fake.name(),
         'phone': fake.phone_number(),
         'dob': fake.date_of_birth(minimum_age=18, maximum_age=85)
