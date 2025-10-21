@@ -167,9 +167,9 @@ appt_journey = {
 def generate_appt_record(pt, appt_type, current_date, is_return_visit=False, visit_number=1):
     """Generate a single appt record for a pt"""
 
-    dept = random.choices(depts)
-    provider = random.choices(providers)
-    hosp = random.choices(hospitals)
+    dept = random.choice(depts)
+    provider = random.choice(providers)
+    hosp = random.choice(hospitals)
 
     # Determine status with weights
     if is_return_visit:
@@ -236,23 +236,23 @@ def generate_appt_record(pt, appt_type, current_date, is_return_visit=False, vis
     # Call disposition and agent info
     if status in ['Confirmed','Completed']:
         call_disposition = 'Appointed'
-        agent_name = random.choices(agents)
-        agent_status = random.choices(['Available','Wrap-Up'])
+        agent_name = random.choice(agents)
+        agent_status = random.choice(['Available','Wrap-Up'])
     elif status == 'Awaiting Callback':
-        call_disposition = random.choices(['Left VM','Callback Requested'])
-        agent_name = random.choices(agents)
+        call_disposition = random.choice(['Left VM','Callback Requested'])
+        agent_name = random.choice(agents)
         agent_status = 'Wrap-Up'
     elif contact_attempts > 0:
-        call_disposition = random.choices(['Left VM','No Answer','Wrong Number'])
-        agent_name = random.choices(agents)
-        agent_status = random.choices(['Available','Wrap-Up','On Call'])
+        call_disposition = random.choice(['Left VM','No Answer','Wrong Number'])
+        agent_name = random.choice(agents)
+        agent_status = random.choice(['Available','Wrap-Up','On Call'])
     else:
         call_disposition = None
         agent_name = None
         agent_status = None
 
     # Scheduled information
-    scheduled_by = random.choices(agents) if status in ['Confirmed','Completed'] else None
+    scheduled_by = random.choice(agents) if status in ['Confirmed','Completed'] else None
 
     if status == 'Completed':
         date_scheduled = fake.date_time_between(start_date='-90d', end_date='-7d')
@@ -262,7 +262,7 @@ def generate_appt_record(pt, appt_type, current_date, is_return_visit=False, vis
         call_duration = random.randint(3, 15)
         wrap_up_duration = random.randint(1, 5)
         handle_time = call_duration + wrap_up_duration
-        first_call_resolution = random.choices([True, True, True, False]) #75% FCR
+        first_call_resolution = random.choice([True, True, True, False]) #75% FCR
 
         time_to_schedule = (date_scheduled - referral_date).days
     elif status == 'Confirmed':
@@ -272,7 +272,7 @@ def generate_appt_record(pt, appt_type, current_date, is_return_visit=False, vis
         call_duration = random.randint(3, 15)
         wrap_up_duration = random.randint(1, 5)
         handle_time = call_duration + wrap_up_duration
-        first_call_resolution = random.choices([True, True, True, False])
+        first_call_resolution = random.choice([True, True, True, False])
 
         time_to_schedule = (date_scheduled - referral_date).days
     else:
@@ -292,10 +292,10 @@ def generate_appt_record(pt, appt_type, current_date, is_return_visit=False, vis
 
     # Reason/notes based on status
     if status in ['Pt Cancelled','Hosp Cancelled']:
-        reason = random.choices(cancel_reasons)
+        reason = random.choice(cancel_reasons)
         notes = f'Cancelled: {reason}'
     elif status == 'Needs Reschedule':
-        reason = random.choices(cancel_reasons[:5])
+        reason = random.choice(cancel_reasons[:5])
         notes = f'Reschedule Needed: {reason}'
     elif status == 'Awaiting Callback':
         notes = 'Left VM, awaiting callback'
@@ -316,7 +316,7 @@ def generate_appt_record(pt, appt_type, current_date, is_return_visit=False, vis
     if is_return_visit:
         referral_source = 'Follow-Up Care'
     else:
-        referral_source = random.choices(['Primary Care','Specialist','ER','Self-Referral'])
+        referral_source = random.choice(['Primary Care','Specialist','ER','Self-Referral'])
 
     return {
         'patientId': pt['pt_id'],
@@ -361,7 +361,7 @@ for i in range(NUM_UNIQUE_PTS):
 
     # Random initial appt type
     initial_appt_types = ['Initial Consult','Annual Check-Up','Follow-Up']
-    appt_type = random.choices(initial_appt_types)
+    appt_type = random.choice(initial_appt_types)
 
     # Store this pt's first appt
     pt_history[pt['pt_id']] = [appt_type]
@@ -383,7 +383,7 @@ for pt in return_visit_pts[:remaining_records]:
     # Determine next logical appt type
     if last_appt in appt_journey:
         possible_next = appt_journey[last_appt]
-        next_appt_type = random.choices(possible_next)
+        next_appt_type = random.choice(possible_next)
     else:
         next_appt_type = 'Follow-Up'
 
