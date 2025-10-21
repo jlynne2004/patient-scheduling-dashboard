@@ -187,7 +187,7 @@ def generate_appt_record(pt, appt_type, current_date, is_return_visit=False, vis
     elif appt_type == 'Annual Check-Up':
         priority = random.choices(priority_levels, weights=[0.05, 0.25, 0.7])[0]
     else:
-        priority = random.choice(priority_levels, weights=[0.2, 0.5, 0.3])[0]
+        priority = random.choices(priority_levels, weights=[0.2, 0.5, 0.3])[0]
 
     # Calculate days since last contact based on priority and outlier distribution
     outlier_chance = random.random()
