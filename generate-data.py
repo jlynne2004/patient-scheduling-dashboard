@@ -241,7 +241,7 @@ def generate_appt_record(pt, appt_type, current_date, is_return_visit=False, vis
         if outlier_chance < 0.10:
             days_since_contact = random.randint(8, 21)
         elif outlier_chance < 0.25:
-            days_since_contact = random.randint(2, 4):
+            days_since_contact = random.randint(2, 4)
         else:
             days_since_contact = random.randint(0, 1)
     elif priority == 'Medium':
