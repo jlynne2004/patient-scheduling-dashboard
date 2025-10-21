@@ -203,12 +203,6 @@ for pt in return_visit_pts[:remaining_records]:
     # Store this appt
     pt_history[pt['pt_id']].append(next_appt_type)
 
-    record = generate_appt_record(
-        pt, next_appt_type, current_date, is_return_visit=True,
-        visit_number=len(pt_history[pt['pt_id']])
-    )
-    data.append(record)
-
 def generate_appt_record(pt, appt_type, current_date, is_return_visit=False, visit_number=1):
     """Generate a single appt record for a pt"""
 
@@ -395,6 +389,12 @@ def generate_appt_record(pt, appt_type, current_date, is_return_visit=False, vis
         'isReturnVisit': is_return_visit,
         'notes': notes
     }
+    
+record = generate_appt_record(
+        pt, next_appt_type, current_date, is_return_visit=True,
+        visit_number=len(pt_history[pt['pt_id']])
+    )
+data.append(record)
 
 # Create DataFrame
 df = pd.DataFrame(data)
