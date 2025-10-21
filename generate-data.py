@@ -389,7 +389,7 @@ def generate_appt_record(pt, appt_type, current_date, is_return_visit=False, vis
         'wrapUpDurationMin': wrap_up_duration,
         'firstCallResolution': first_call_resolution,
         'timetoScheduleDays': time_to_schedule,
-        'leadTimeDays': ;ead_time,
+        'leadTimeDays': lead_time,
         'insuranceType': insurance_type,
         'visitNumber': visit_number,
         'isReturnVisit': is_return_visit,
