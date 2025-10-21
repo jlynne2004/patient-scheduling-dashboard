@@ -299,7 +299,7 @@ def generate_appt_record(pt, appt_type, current_date, is_return_visit=False, vis
     # Scheduled information
     scheduled_by = random.choice(agents) if status in ['Confirmed','Completed'] else None
 
-    if status == 'Completed'
+    if status == 'Completed':
         date_scheduled = fake.date_time_between(start_date='-90d', end_date='-7d')
         appt_date = fake.date_time_between(start_date=date_scheduled, end_date='now')
 
@@ -310,7 +310,7 @@ def generate_appt_record(pt, appt_type, current_date, is_return_visit=False, vis
         first_call_resolution = random.choice([True, True, True, False]) #75% FCR
 
         time_to_schedule = (date_scheduled - referral_date).days
-    elif status == 'Confirmed'
+    elif status == 'Confirmed':
         date_scheduled = fake.date_time_between(start_date=referral_date, end_date='now')
         appt_date = fake.date_time_between(start_date='now', end_date='+90d')
 
