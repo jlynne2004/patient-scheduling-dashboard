@@ -366,7 +366,7 @@ def generate_appt_record(pt, appt_type, current_date, is_return_visit=False, vis
     return {
         'patientId': pt['pt_id'],
         'patientName': pt['pt_name'],
-        'dob': pt['dob'].strftime('%Y-%m-%d')
+        'dob': pt['dob'].strftime('%m/%d/%Y'),
         'phoneNumber': pt['phone'],
         'department': dept,
         'doctor': provider,
@@ -374,17 +374,17 @@ def generate_appt_record(pt, appt_type, current_date, is_return_visit=False, vis
         'apptType': appt_type,
         'status': status,
         'priorityLevel': priority,
-        'referralDate': referral_date.strftime('%Y-%m-%d')
+        'referralDate': referral_date.strftime('%m/%d/%Y'),
         'referralSource': referral_source,
-        'lastContactDate': last_contact_date.strftime('%Y-%m-%d'),
+        'lastContactDate': last_contact_date.strftime('%m/%d/%Y'),
         'daysSinceLastContact': days_since_contact,
         'contactAttempts': contact_attempts,
         'callDisposition': call_disposition,
         'agentName': agent_name,
         'agentStatus': agent_status,
         'scheduledBy': scheduled_by,
-        'dateScheduled': date_scheduled.strftime('%Y-%m-%d') if date_scheduled else None,
-        'apptDate': appt_date.strftime('%Y-%m-%d') if appt_date else None
+        'dateScheduled': date_scheduled.strftime('%m/%d/%Y') if date_scheduled else None,
+        'apptDate': appt_date.strftime('%m/%d/%Y') if appt_date else None,
         'callDurationMin': call_duration,
         'wrapUpDurationMin': wrap_up_duration,
         'firstCallResolution': first_call_resolution,
