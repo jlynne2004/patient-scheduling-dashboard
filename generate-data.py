@@ -179,7 +179,7 @@ def generate_appt_record(pt, appt_type, current_date, is_return_visit=False, vis
         # New pts more likely to need initial scheduling
         status_weights = [0.20, 0.22, 0.08, 0.05, 0.30, 0.20, 0.05]
 
-    status = random.choices(statuses, weight=status_weights)[0]
+    status = random.choices(statuses, weights=status_weights)[0]
 
     # Priority based on appt type and rating
     if appt_type in ['Surgery','Procedure'] or status == 'New Patient':
