@@ -164,45 +164,6 @@ appt_journey = {
     'Annual Check-Up': ['Lab Work','Follow-Up']
 }
 
-# Generate dataset with pt histories
-data = []
-pt_history = {} # Track what appts each pt has had
-
-# First pass: Create initial appts for most pts
-for i in range(NUM_UNIQUE_PTS):
-    pt = base_pts[i]
-
-    # Random initial appt type
-    initial_appt_types = ['Initial Consult','Annual Check-Up','Follow-Up']
-    appt_type = random.choice(initial_appt_types)
-
-    # Store this pt's first appt
-    pt_history[pt['pt_id']] = [appt_type]
-
-    record = generate_appt_record(
-        pt, appt_type, current_date, is_return_visit=False
-    )
-    data.append(record)
-
-# Second pass: Add return visits for some pts
-remaining_records = NUM_RECORDS - NUM_UNIQUE_PTS
-return_visit_pts = random.sample(base_pts, min(remaining_records, NUM_UNIQUE_PTS))
-
-for pt in return_visit_pts[:remaining_records]:
-    # Get pts's previous appt type
-    previous_appts = pt_history[pt['pt_id']]
-    last_appt = previous_appts[-1]
-
-    # Determine next logical appt type
-    if last_appt in appt_journey:
-        possible_next = appt_journey[last_appt]
-        next_appt_type = random.choice(possible_next)
-    else:
-        next_appt_type = 'Follow-Up'
-
-    # Store this appt
-    pt_history[pt['pt_id']].append(next_appt_type)
-
 def generate_appt_record(pt, appt_type, current_date, is_return_visit=False, visit_number=1):
     """Generate a single appt record for a pt"""
 
@@ -389,12 +350,51 @@ def generate_appt_record(pt, appt_type, current_date, is_return_visit=False, vis
         'isReturnVisit': is_return_visit,
         'notes': notes
     }
-    
-record = generate_appt_record(
+
+# Generate dataset with pt histories
+data = []
+pt_history = {} # Track what appts each pt has had
+
+# First pass: Create initial appts for most pts
+for i in range(NUM_UNIQUE_PTS):
+    pt = base_pts[i]
+
+    # Random initial appt type
+    initial_appt_types = ['Initial Consult','Annual Check-Up','Follow-Up']
+    appt_type = random.choice(initial_appt_types)
+
+    # Store this pt's first appt
+    pt_history[pt['pt_id']] = [appt_type]
+
+    record = generate_appt_record(
+        pt, appt_type, current_date, is_return_visit=False
+    )
+    data.append(record)
+
+# Second pass: Add return visits for some pts
+remaining_records = NUM_RECORDS - NUM_UNIQUE_PTS
+return_visit_pts = random.sample(base_pts, min(remaining_records, NUM_UNIQUE_PTS))
+
+for pt in return_visit_pts[:remaining_records]:
+    # Get pts's previous appt type
+    previous_appts = pt_history[pt['pt_id']]
+    last_appt = previous_appts[-1]
+
+    # Determine next logical appt type
+    if last_appt in appt_journey:
+        possible_next = appt_journey[last_appt]
+        next_appt_type = random.choice(possible_next)
+    else:
+        next_appt_type = 'Follow-Up'
+
+    # Store this appt
+    pt_history[pt['pt_id']].append(next_appt_type)
+
+    record = generate_appt_record(
         pt, next_appt_type, current_date, is_return_visit=True,
         visit_number=len(pt_history[pt['pt_id']])
     )
-data.append(record)
+    data.append(record)
 
 # Create DataFrame
 df = pd.DataFrame(data)
