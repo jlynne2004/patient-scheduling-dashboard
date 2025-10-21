@@ -231,7 +231,7 @@ def generate_appt_record(pt, appt_type, current_date, is_return_visit=False, vis
     else:
         days_since_referral = days_since_contact + random.randint(1, 30)
 
-    referral_date = current_date - timedelta(date_since_referral)
+    referral_date = current_date - timedelta(days_since_referral)
 
     # Call disposition and agent info
     if status in ['Confirmed','Completed']:
