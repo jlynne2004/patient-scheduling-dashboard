@@ -149,7 +149,7 @@ for i in range(NUM_UNIQUE_PTS):
     base_pts.append({
         'pt_id': f'PT{1000 + i}',
         'pt_name': fake.name(),
-        'phone': phonenumbers.format_number(phonenumbers.parse(fake.phone_number(), "US")),
+        'phone': phonenumbers.format_number(phonenumbers.parse(fake.phone_number(), "US"), phonenumbers.PhoneNumberFormat.NATIONAL),
         'dob': fake.date_of_birth(minimum_age=18, maximum_age=85)
     })
 
