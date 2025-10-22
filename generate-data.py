@@ -2,6 +2,7 @@ import pandas as pd
 from faker import Faker
 import random
 from datetime import datetime, timedelta
+import phonenumbers
 
 # Initialize Faker
 fake = Faker()
@@ -148,7 +149,7 @@ for i in range(NUM_UNIQUE_PTS):
     base_pts.append({
         'pt_id': f'PT{1000 + i}',
         'pt_name': fake.name(),
-        'phone': fake.phone_number(),
+        'phone': phonenumbers.format_number(phonenumbers.parse(fake.phone_number(), "US")),
         'dob': fake.date_of_birth(minimum_age=18, maximum_age=85)
     })
 
